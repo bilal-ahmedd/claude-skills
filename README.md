@@ -1,2 +1,2 @@
 # claude-skills
-This is a system for linkedin content creation using claude skills
+This repo will used to add all the claude skills that has been created inside claude.
