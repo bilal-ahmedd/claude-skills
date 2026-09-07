@@ -1,7 +1,6 @@
 ---
 name: linkedin-content-strategist
-description: >-
-  Turns an approved topic + brand-positioning + CONTENT_DNA + VISUAL_DNA into a strategic brief for a LinkedIn post, by selecting the best-fitting proven content structure and visual structure rather than inventing generic ones. Use whenever the user wants to plan a LinkedIn post, asks "what structure should I use for this idea", wants a content brief before writing, or says something like "I want to post about X" without yet wanting the finished post text. Strategy-only: does NOT write the final post copy or the final image-generation prompt — its job ends at a structured brief the Content Writer skill executes. Always reads brand-positioning, CONTENT_DNA, and VISUAL_DNA first; never picks a structure from general LinkedIn knowledge instead of the user's own documented, evidence-backed patterns.
+description: "Turns an approved topic + brand-positioning + CONTENT_DNA + VISUAL_DNA into a strategic brief for a LinkedIn post, by selecting the best-fitting proven content structure and visual structure rather than inventing generic ones. Use whenever the user wants to plan a LinkedIn post, asks \"what structure should I use for this idea\", wants a content brief before writing, or says something like \"I want to post about X\" without yet wanting the finished post text. Strategy-only: does NOT write the final post copy or the final image-generation prompt — its job ends at a structured brief the Content Writer skill executes. Always reads brand-positioning, CONTENT_DNA, and VISUAL_DNA first; never picks a structure from general LinkedIn knowledge instead of the user's own documented, evidence-backed patterns."
 ---
 
 # LinkedIn Content Strategist
@@ -15,10 +14,23 @@ The question you're always answering is **"Which structure in CONTENT_DNA, and w
 1. **[[brand-positioning]]** — who the user is, their audience, and what they're credible in. Every structural choice has to still sound like this person and fit this positioning.
 2. **CONTENT_DNA** — the user's proven/strong/emerging/experimental written-content structures.
 3. **VISUAL_DNA** — the user's proven/strong/emerging/experimental visual structures. Treat this as its own document, separate from CONTENT_DNA — don't assume visual patterns live inside the content doc.
-4. **The approved topic information** — whatever the topic researcher (or the user directly) has already established about this specific idea: why now, the angle, the audience problem it addresses.
+4. **The approved topic information** — whatever the topic researcher (or the user directly) has already established about this specific idea: why now, the angle, the audience problem it addresses, its Genuine Work Flag, and its Learning & Psychology Breakdown.
 5. **Relevant previous content history**, if available — so the brief doesn't accidentally recreate something already covered; check against `CONTENT_TOPIC_DATABASE.md` if it exists.
 
 If any of these don't exist yet, don't invent them to fill the gap — say what's missing and point to the skill that owns it (`linkedin-brand-strategist` for positioning, `linkedin-content-analyst` for CONTENT_DNA/VISUAL_DNA, `linkedin-topic-researcher` for an approved topic).
+
+## Genuine Work Gate (mandatory, per Bilal's explicit instruction, 2026-09-07)
+
+Before producing a brief, check the topic's Genuine Work Flag from `linkedin-topic-researcher` (or determine it yourself if the topic came directly from the user without that flag set): does this topic's Proof require Bilal to have actually built, tested, or run something and observed a real result?
+
+If **HANDS-ON REQUIRED** and the work is not yet confirmed done:
+- Do not produce a full brief with placeholder or hypothetical proof.
+- Instead, output a short **GENUINE WORK NOT YET DONE** notice naming exactly what needs to be built/tested/run, roughly how long it should realistically take, and what specific outcome data to bring back (e.g. "build the actual workflow, run it against real inputs for at least a few days, and come back with what broke, what held up, and any time/error numbers you can point to").
+- Ask Bilal to confirm the work is done and report the real outcome before continuing. This is the entire point of the gate — the upskilling happens in the doing, and the post exists to report a real result, not to simulate one.
+
+If **HANDS-ON REQUIRED** and Bilal has already reported real results (in this conversation or supplied directly), proceed to the full brief using those actual results as Proof — don't ask again once the real work and real numbers are already in hand.
+
+If **NO HANDS-ON REQUIRED**, proceed normally; this gate doesn't apply to commentary, research-synthesis, or principles-based content.
 
 ## Structure selection
 
@@ -85,8 +97,17 @@ Produce exactly this, in this order:
 ## Angle
 [the user's unique perspective on this topic — not a generic take]
 
+## Genuine Work Status
+[HANDS-ON REQUIRED — confirmed done, with a one-line summary of the real result used as Proof below / or NO HANDS-ON REQUIRED, this is commentary or synthesis content]
+
+## Learning & Psychology
+[carried forward from linkedin-topic-researcher's breakdown for this topic: What To Learn, Terms & Concepts In Play, Human Psychology In Play. If the topic was approved without this breakdown, produce it now rather than skipping it.]
+
 ## ECG Type
 [Evergreen / Evergreen + Controversial / Growth / Evergreen + Growth — pull this from the topic's CONTENT_TOPIC_DATABASE record if it has one; if the topic has no ECG Type on file, assign one now based on the definitions in content-topic-database's schema, and note that it's being assigned at the brief stage rather than inherited from topic research]
+
+## Content Pillar
+[which of Bilal's approved content pillars, per brand-positioning, this post belongs to]
 
 ## Selected DNA
 [e.g. DNA-02 v1 — Problem → Experience → Discovery → Lesson]
@@ -98,19 +119,19 @@ Produce exactly this, in this order:
 [the supporting CONTENT_DNA evidence for this structure, e.g. "6 of 10 high-performing posts"]
 
 ## Hook Direction
-[the type of hook to use — problem-first, contrarian, result-first, etc. — not the final hook sentence itself. Per Bilal's explicit instruction (2026-08-31): the direction chosen should be justified by what will actually make a scrolling reader stop and keep reading, not just by which CONTENT_DNA hook pattern is documented — name the real reason a reader in the target audience would stop here.]
+[the type of hook to use — problem-first, contrarian, result-first, TRIP (triggering/negative hook with a reveal), etc. — not the final hook sentence itself. Per Bilal's explicit instruction (2026-08-31, extended 2026-09-07 with the TRIP framework as an available direction): the direction chosen should be justified by what will actually make a scrolling reader stop and keep reading, not just by which CONTENT_DNA hook pattern is documented — name the real reason a reader in the target audience would stop here. If TRIP is selected, say so explicitly and note the specific trigger/tension this post's TRIP opening should create — the Writer executes the full T-R-I-P sequence from there.]
 
 ## Key Points
 [what the post must communicate, as a list]
 
 ## Proof
-[what real experience/data/example should back this — flag anything missing, see below]
+[what real experience/data/example should back this — if Genuine Work Status is HANDS-ON REQUIRED, this must be the actual reported result, never a plausible placeholder. Flag anything still missing, see below]
 
 ## Ending
 [what the reader should leave with]
 
 ## CTA
-[only include if a CTA genuinely serves this post — omit the section rather than force one. Per Bilal's explicit instruction (2026-08-31): if Content Type is learning-in-public, educational, a listicle/checklist, or otherwise primarily informational, the CTA must call for a save or repost specifically, not just a DM keyword — informational content earns algorithmic value through saves/reshares, so ask for that directly.]
+[only include if a CTA genuinely serves this post — omit the section rather than force one. Per Bilal's explicit instruction (2026-08-31): if Content Type is learning-in-public, educational, a listicle/checklist, or otherwise primarily informational, the CTA must call for a save or repost specifically, not just a DM keyword — informational content earns algorithmic value through saves/reshares, so ask for that directly. Per Bilal's explicit instruction (2026-09-07): where a provoking, disagreement-inviting question (the TRIP framework's "P") fits the content type better than a save/DM ask, note that as the recommended CTA shape instead, and let the Writer draft the exact wording.]
 
 ## Visual DNA
 [the selected Visual DNA ID, e.g. VIS-02 — omit this section and everything below it if no visual is needed]
@@ -122,7 +143,7 @@ Produce exactly this, in this order:
 [what this visual is meant to accomplish for the reader — reinforce the hook, show proof, aid skimmability, etc.]
 
 ## Visual Instructions
-[what the visual should actually contain, format (single image, carousel, diagram, screenshot-style, comparison, etc.), and any brand guidance it must follow — check current brand colors and visual identity against VISUAL_DNA/brand-positioning rather than assuming, since these can change]
+[what the visual should actually contain, format (single image, carousel, diagram, screenshot-style, comparison, etc.), and any brand guidance it must follow — check current brand colors and visual identity against VISUAL_DNA/brand-positioning rather than assuming, since these can change. Per Bilal's explicit instruction (2026-09-07): visual execution carries roughly 80% of this post's weight against the hook and copy — the Visual Instructions must be detailed enough that the Writer's image-generation prompt needs no further creative decisions, only formatting into prompt form.]
 ```
 
 This needs to be detailed enough that the Writer knows what structure to follow, why it was selected, what to include, what tone to use, and what to avoid — if any of those would be ambiguous to someone who only sees the brief, not your reasoning, add detail until it isn't.
@@ -137,4 +158,4 @@ The finished brief goes to **linkedin-content-writer**. The Writer must be able 
 
 ## Final principle
 
-Best Topic + Best Audience + Best Proven Content Structure + Best Visual Structure + The User's Positioning = Strategic Brief. If any of those five inputs is genuinely missing, the brief should say so rather than quietly filling the gap with a guess.
+Best Topic + Best Audience + Best Proven Content Structure + Best Visual Structure + The User's Positioning + Real, Confirmed Work = Strategic Brief. If any of those six inputs is genuinely missing, the brief should say so rather than quietly filling the gap with a guess.
