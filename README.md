@@ -1,53 +1,26 @@
 # claude-skills
 
-Claude skills for Bilal Ahmed's LinkedIn content system — a governed pipeline that researches topics, drafts posts, writes comments/replies/DMs, triages the inbox, plans the week, scores the profile, and measures what actually worked, all grounded in one evolving, evidence-based source of truth instead of generic LinkedIn advice.
+Claude skills for Bilal Ahmed's LinkedIn content system — drafts posts, writes comments/replies/DMs, triages the inbox, plans the week, and audits performance. Brand positioning stays governed separately and is the one part of the system that hasn't changed.
 
-## How it fits together
+## Brand positioning — unchanged, source of truth for identity
 
-```
-Topic Researcher ──▶ Content Strategist ──▶ Content Writer ──▶ (posted by Bilal)
-      │                                                              │
-      ▼                                                              ▼
-Content Topic DB                                           Performance Analyst
-                                                                      │
-                                                                      ▼
-                                                            Learning Engine
-                                                                      │
-                                                                      ▼
-                                                          Content Analyst ──▶ CONTENT_DNA / VISUAL_DNA
-```
+| skill | does |
+|---|---|
+| `brand-positioning` | Bilal's approved identity, skill tiers, audience, and profile copy (Banner, Headline, About, Featured) — read-only reference for every other skill |
+| `linkedin-brand-strategist` | The only skill that evaluates or changes profile copy. Never updates `brand-positioning` without Bilal's explicit approval |
 
-Everything upstream of a post (topic, structure, voice) comes from evidence already logged in this repo's data documents — not from a generic hook-formula list. Everything downstream of a post (performance, learning) feeds back into those same documents, so the system gets better at *this specific account* over time instead of staying static.
+## Content system
 
-## Governance skills — schema + data, not workflow
-
-Each pair below is a schema-and-rules skill plus the actual data document it governs. Only the named owner writes to the data file; everything else reads it.
-
-| schema skill | data file | owner | purpose |
-|---|---|---|---|
-| `brand-positioning` | (itself) | `linkedin-brand-strategist` | Approved identity, skill tiers, audience, profile copy |
-| `content-dna` | `content-dna-record` | `linkedin-content-analyst` | Evidence-gated content structures + Voice DNA |
-| `visual-dna` | `visual-dna-record` | `linkedin-content-analyst` | Evidence-gated visual patterns + brand colors |
-| `content-memory` | `content-memory-record` | `linkedin-performance-analyst` | Permanent per-post performance log |
-| `content-experiments` | `content-experiments-record` | `linkedin-learning-engine` | Controlled tests run on the account |
-| `content-topic-database` | `content-topic-database-record` | `linkedin-topic-researcher` | Every topic considered, approved, or rejected |
-
-## Pipeline skills
-
-| skill | does | reads | never does |
-|---|---|---|---|
-| `linkedin-topic-researcher` | Finds non-repetitive content opportunities grounded in real positioning and history | brand-positioning, CONTENT_TOPIC_DATABASE, CONTENT_DNA | Write posts, pick structure |
-| `linkedin-content-strategist` | Turns an approved topic into a strategic brief (structure + visual + hook direction) | CONTENT_DNA, VISUAL_DNA, brand-positioning | Write final copy |
-| `linkedin-content-writer` | Executes a brief into a finished post + image prompt, in Voice DNA, following the selected structure | Strategist's brief, CONTENT_DNA, VISUAL_DNA | Choose structure, research topics |
-| `linkedin-performance-analyst` | Analyzes single posts or batches against baseline; separates FACT/OBSERVATION/HYPOTHESIS | Post + metrics, CONTENT_MEMORY | Edit CONTENT_DNA directly, write posts |
-| `linkedin-learning-engine` | Decides when evidence is strong enough to actually change CONTENT_DNA/VISUAL_DNA; owns experiments | Accumulated performance data | Write posts, change brand positioning |
-| `linkedin-content-analyst` | Converts real post history (copy + visuals + metrics) into structured CONTENT_DNA/VISUAL_DNA updates | Published posts, performance data | Write new posts, decide strategy |
-| `linkedin-brand-strategist` | The only skill that evaluates or changes profile copy (headline/About/Featured/banner); scores it against a 12-point rubric | brand-positioning | Write posts, research topics |
-| `linkedin-algorithm-researcher` | Live research on how LinkedIn's feed algorithm currently works | Fresh web research (never memory alone) | Give branding or content advice |
+| skill | does |
+|---|---|
+| `linkedin-post-writer` | Turns a raw idea into a full LinkedIn post — 3 hook options from 21 proven formulas (`hooks.json`), one full draft, humanized before delivery. Reads `brand-positioning` for identity/audience and its own `ACCOUNT_HISTORY.md` for voice + validated performance learnings |
+| `linkedin-audit` | Post-mortem on published posts — engagement rate, comment ratio, reach multiple, ranked top/bottom 5, honest pattern-finding. Feeds conclusions to `linkedin-weekly-planner` |
+| `linkedin-weekly-planner` | The control room — what to post, when, and who to engage with, built from real evidence, not defaults |
+| `linkedin-humanizer` | Shared final pass on every draft — strips invisible watermark characters, em dashes, and a 113-term AI-slop lexicon, then scores the result (burstiness, specificity, slop density, fingerprint, voice) |
 
 ## Execution skills — day-to-day writing and engagement
 
-These produce copy-ready text the user reviews and posts themselves. **None of them post, comment, or send anything automatically** — LinkedIn's User Agreement prohibits automating a personal profile, and every skill here ends at a copy-ready block, by design, not as a limitation bolted on afterward.
+None of these post, comment, or send anything automatically — LinkedIn's User Agreement prohibits automating a personal profile. Every skill here ends at a copy-ready block the user sends themselves.
 
 | skill | does |
 |---|---|
@@ -57,19 +30,19 @@ These produce copy-ready text the user reviews and posts themselves. **None of t
 | `linkedin-inbox-triage` | Sorts the inbox into lead / recruiter / peer / ask / spam and drafts only what's worth sending |
 | `linkedin-carousel-writer` | Document posts — slide-by-slide copy, the cover that earns the swipe |
 | `linkedin-repurposer` | Turns one long asset (video, newsletter, transcript) into a week of standalone posts |
-| `linkedin-weekly-planner` | The control room — what to post, when, and who to engage with, built from real evidence not defaults |
-| `linkedin-humanizer` | Shared final pass on every draft above — strips invisible watermark characters, em dashes, and a 113-term AI-slop lexicon, then scores the result (burstiness, specificity, slop density, fingerprint, voice) |
-
-`linkedin-humanizer` ships two dependency-free Python scripts (`humanize.py`, `detect.py`) plus `slop.json` (the lexicon). It runs as a mechanical, quantitative pass *after* the qualitative `stop-slop` pass every writer skill already applies — the two aren't redundant: one catches structural AI tells, the other catches invisible characters and typography a prose review misses.
+| `linkedin-algorithm-researcher` | Live research on how LinkedIn's feed algorithm currently works — independent of the writing pipeline |
 
 ## Design principles
 
-- **Evidence over formula.** CONTENT_DNA and VISUAL_DNA are built from this account's own published results, not generic "21 hooks that work on LinkedIn" advice. Where a generic reference (like `hooks.json`) is kept, it's explicitly secondary to whatever the evidence-based structure already specifies.
-- **Nothing is approved silently.** Brand positioning and profile copy only change after Bilal explicitly approves — a proposal is never treated as decided just because it sounds right.
-- **Nothing is fabricated.** No invented clients, metrics, or results ever go out under Bilal's name, even as a placeholder — a gap gets flagged (`[NEED USER INPUT]`), never papered over.
+- **Brand positioning changes only with explicit approval.** `linkedin-brand-strategist` proposes, Bilal approves, then `brand-positioning` gets updated — never the other way around.
+- **Real account history, not a cold start.** `linkedin-post-writer`'s `ACCOUNT_HISTORY.md` carries forward validated learnings from the account's actual post history — e.g. client-story structure is the strongest proven format, reused proof and "honest failure" postmortems both correlate with the account's worst results, stat-first hooks have underperformed twice against specific-fact hooks.
+- **Nothing is fabricated.** No invented clients, metrics, or results ever go out under Bilal's name — a gap gets flagged, never papered over.
 - **Nothing posts itself.** Every skill's output is a copy-ready block. A human sends it.
-- **One writer per document.** Each data file (CONTENT_DNA, CONTENT_MEMORY, etc.) has exactly one skill authorized to write to it; every other skill reads it.
 
 ## Credit
 
-The hook-formula library, the humanizer's mechanical checks, and several of the engagement-focused skills (comment, reply, DM, inbox, carousel, repurpose, weekly planning) were adapted from Jake Schincariol's [linkedin-agent-skill](https://github.com/Jakeschincariol/linkedin-agent-skill) (MIT), then rewired to read from and write to this repo's own CONTENT_DNA/brand-positioning system instead of a standalone voice file.
+Adapted from Jake Schincariol's [linkedin-agent-skill](https://github.com/Jakeschincariol/linkedin-agent-skill) (MIT), rewired to read `brand-positioning` for identity/voice and to preserve this account's own performance history instead of starting from a blank template.
+
+## History
+
+An earlier version of this repo ran a separate evidence pipeline (`CONTENT_DNA`/`VISUAL_DNA`, a Content Strategist/Writer/Analyst/Performance-Analyst/Learning-Engine chain) built up over ~15 published posts. That system was retired in favor of the `linkedin-agent-skill` pack above; its validated findings were migrated into `linkedin-post-writer/ACCOUNT_HISTORY.md` rather than discarded. See git history for the full prior architecture.

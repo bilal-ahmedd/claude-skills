@@ -19,7 +19,7 @@ Use a carousel when the idea has **sequence** - steps, a countdown, a
 before/after progression, a framework with parts. Use a text post when the
 idea is one claim. Splitting one claim across eight slides is the most common
 way carousels fail, and if that is what the user has, say so and hand them to
-`linkedin-content-strategist` / `linkedin-content-writer` instead.
+`linkedin-post-writer` instead.
 
 ## Structure
 
