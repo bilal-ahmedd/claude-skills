@@ -45,7 +45,7 @@ Mix across the week, never two of the same type back to back:
 
 For each slot give: the theme, the specific angle drawn from what actually
 happened this week, and the hook formula number from
-`linkedin-content-writer/hooks.json` that fits it. Not a topic - an angle.
+`linkedin-post-writer/hooks.json` that fits it. Not a topic - an angle.
 "AI" is not a plan. "The proposal we lost because our AI draft had an em dash
 in it" is a post.
 
@@ -93,8 +93,7 @@ ENGAGE  (5 reach / 3 peers / 2 buyers)
   ...
 
 Say "write Tuesday" and I will hand that slot's angle to
-linkedin-content-strategist to build the brief, then linkedin-content-writer
-to draft it - this skill plans, it doesn't execute.
+linkedin-post-writer to draft it - this skill plans, it doesn't execute.
 ```
 
 Write the plan to this skill's own `PLAN.md` so the other skills can read it.

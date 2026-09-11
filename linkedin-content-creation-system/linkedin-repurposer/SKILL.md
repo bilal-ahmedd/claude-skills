@@ -43,7 +43,7 @@ Each extract becomes one post, and each post has to stand completely on its
 own - the reader has not seen the video and never will. Never write "as I
 mentioned in my latest video". The post is the thing.
 
-Assign a hook formula from `linkedin-content-writer/hooks.json` to each, and
+Assign a hook formula from `linkedin-post-writer/hooks.json` to each, and
 vary them: five posts from one source with the same hook shape reads as a
 content mill.
 
@@ -64,11 +64,10 @@ WED  #17 Time Anchor   We got 6 hours a week back by deleting one calendar link
 THU  #9  Cold Open     "Can we just hop on a quick call?"
 FRI  #21 Direct Value  The 4-question form that replaced the call. Steal it.
 
-Say "write Tuesday" and I will hand that angle to linkedin-content-writer to
+Say "write Tuesday" and I will hand that angle to linkedin-post-writer to
 draft.
 ```
 
-Then draft on request, one at a time, each through `linkedin-content-writer`
-(or `linkedin-content-strategist` first, if it needs a full brief) and finish
-with `linkedin-humanizer`. Do not dump four finished posts at once - they will
+Then draft on request, one at a time, each through `linkedin-post-writer` and
+finish with `linkedin-humanizer`. Do not dump four finished posts at once - they will
 all sound the same, and the user will edit none of them.
