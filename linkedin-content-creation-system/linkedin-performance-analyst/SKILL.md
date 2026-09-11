@@ -42,6 +42,45 @@ Across these, analyze:
 - **Audience response** — what the comments and reactions actually indicate about who engaged and how
 - **Business value** — leads, calls, clients, or anything that moved toward an actual outcome, not just a platform metric
 
+## Batch audit — ranking many published posts at once (absorbed from the retired li-audit skill)
+
+When Bilal wants a post-mortem across a stretch of published posts rather than one, pull from `CONTENT_MEMORY` (and ask for a fresh analytics export or screenshots for anything not yet logged there). Raw impressions are the least useful number on the page — they're mostly a function of existing follower count — so compute and rank by these instead:
+
+| metric | how | what it tells you |
+| --- | --- | --- |
+| **Engagement rate** | (reactions + comments + reposts) / impressions | whether the post earned its reach |
+| **Comment ratio** | comments / reactions | whether it started something or just got a nod |
+| **Reach multiple** | impressions / follower count | whether it travelled past the existing audience |
+| **Save/send rate** | if available | the strongest single predictor of future reach |
+
+Rank by engagement rate and reach multiple, not impressions — a post with 900 impressions and 40 comments beats one with 12,000 impressions and 6. Line up the top 5 and bottom 5 and look for what actually separates them: CONTENT_DNA structure ID, VISUAL_DNA structure ID, format (text/document/image/video), length, theme, and first-hour reply behavior. Check day/time **last**, and only if nothing else shows a signal — it's almost never the cause, and it's where people want it to be. With 30 posts a pattern is visible; with 6 it usually isn't, and that has to be said plainly rather than inventing one.
+
+```
+AUDIT  ·  31 posts  ·  Jun 12 – Sep 5
+
+TOP 5 BY ENGAGEMENT RATE
+  8.1%  DNA-03  "$18,000 is what no contract cost me"        1,940 imp
+  6.4%  DNA-07  "I fired my highest-paying client"           2,210 imp
+  ...
+
+BOTTOM 5
+  0.4%  DNA-01  "7 tools every founder needs"                11,400 imp
+  ...
+
+WHAT THE DATA SAYS
+1. Posts where Bilal was the one who looked bad: mean 6.2% vs 1.1% for
+   everything else. n=6. Strongest signal, not close.
+2. Tool listicles get impressions and nothing else. High reach, no comments,
+   no leads. Three of the bottom five.
+3. Day of week shows nothing. Tuesday mean and Friday mean are inside the
+   noise. Stop optimizing it.
+
+STOP: listicles about tools.
+DO MORE: posts with a real cost paid, and a number.
+```
+
+State each finding as FACT / OBSERVATION / HYPOTHESIS per the discipline below, same as a single-post analysis, and route it through `linkedin-learning-engine` the same way — a batch audit doesn't get a different bar for evidence just because it covers more posts. Hand the resulting STOP/DO MORE conclusions to `linkedin-weekly-planner` so next week's plan is built on this account's own evidence rather than on defaults.
+
 ## Do not overclaim
 
 Never write "this caused the performance." Write "this pattern is associated with stronger/weaker performance in the available sample." A correlation that looks strong in a handful of posts can vanish in the next ten, and treating it as causal now means everything downstream inherits an overconfident claim.

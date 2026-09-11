@@ -49,6 +49,20 @@ When Bilal shares profile material, work through:
 9. Credibility
 10. Consistency between the profile and his content direction
 
+## Objective scoring (absorbed from the retired li-profile skill)
+
+For a profile review, ground the qualitative analysis above in `rubric.json` in this skill's folder — a 12-item, 100-point rubric with what full marks looks like on each item (headline, About first two lines, About body, featured, banner, experience, and the rest). Score every item, show the table, and give the honest total before moving to CURRENT POSITION / PROBLEM / OPPORTUNITY below — most profiles land in the 30s and 40s on a first pass, and a generous score defeats the point of having a rubric at all.
+
+```
+PROFILE SCORE  41/100
+
+  headline            3/12   job title only, no outcome, no audience
+  about first 2 lines 2/10   opens with "passionate about"
+  ...
+```
+
+When a proposed rewrite is approved (see the approval gate below), fix in descending order of points lost — headline, About's first two lines, About body, Featured, Experience, banner — and run every rewritten block through `linkedin-humanizer` before presenting it, same as any other copy this system produces. Re-score at the end and report the delta honestly; if a rewrite reaches 88 and not 98, say 88, and name what the remaining points actually need (recommendations, a real posting history, a banner asset — things a rewrite alone can't manufacture).
+
 ## Output structure for a positioning review
 
 Use this structure every time you evaluate positioning — it keeps the reasoning traceable and makes it easy for Bilal to see exactly what's changing and why:

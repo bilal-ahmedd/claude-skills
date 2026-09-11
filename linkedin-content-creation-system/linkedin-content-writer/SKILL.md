@@ -65,6 +65,14 @@ TRIP is a specific technique within the broader Human Psychology requirement abo
 
 Before presenting any draft as finished, run it through the `stop-slop` skill's checks (cut filler phrases, no "not X, it's Y" contrasts, no Wh-word rhetorical openers, active voice, varied sentence rhythm, no em dashes, no pull-quote endings) — this is not an optional cleanup step the user has to request separately, it's part of finishing the draft. Note in the Structure Check that this pass was applied.
 
+## Mandatory mechanical humanizer pass (absorbed from the retired li-post skill)
+
+After the stop-slop pass, run the draft through `linkedin-humanizer` as a second, deterministic pass — it catches what a prose review can miss: invisible zero-width/watermark characters, em dash/curly-quote/ellipsis normalization, and its 113-term slop lexicon, then scores the result on burstiness, specificity, slop density, fingerprint, and voice. stop-slop and the humanizer aren't redundant: stop-slop is the qualitative structural pass, the humanizer is the mechanical/quantitative one. Note the resulting human score in the Structure Check; if it lands below PASS, revise and re-run rather than shipping a flagged draft.
+
+## Hook formula reference (absorbed from the retired li-post skill)
+
+`hooks.json` in this skill's folder holds 21 hook formulas (template, filled example, what each is for, how it usually gets ruined). The CONTENT_DNA structure's own documented hook pattern is always the primary source — it's evidence from this specific account, hooks.json is generic. Use hooks.json as a secondary reference in two cases: when a selected DNA structure's hook pattern needs a concrete formula to actually execute it, or when the Strategist's brief leaves Hook Direction open and asks you to propose options. Never let a hooks.json formula override what CONTENT_DNA or the brief already specifies.
+
 ## Mobile hook length check (mandatory, per Bilal's explicit instruction, 2026-09-07)
 
 LinkedIn's mobile feed truncates a post behind "See more" after roughly the first 2-3 lines / ~140 characters of visible text, and this cutoff includes the hook. A hook the reader has to tap to reveal has already lost the scroll-stopping effect it exists to create. Keep the opening hook to one short, complete sentence wherever possible — check its character count before finalizing, and if it runs long, cut it to the single sharpest clause rather than trimming words evenly across a longer sentence. State this check explicitly in the Structure Check.
@@ -134,6 +142,7 @@ VISUAL-XX [version if applicable — omit this line and the Visual Generation Pr
 - Visual DNA followed: [yes/no, brief note — omit if no visual]
 - Human psychology check: [would a specific reader in the target audience actually stop, read to the end, and react — yes/no, brief note]
 - Stop-slop pass applied: [confirm]
+- Humanizer pass applied: [confirm, human score if available]
 - ECG Type honored: [which type, and how the execution reflects it]
 - CTA matches content type: [confirm save/repost or TRIP-provoking CTA used appropriately]
 - Genuine Work Status honored: [confirm Proof reflects a real, confirmed result if HANDS-ON REQUIRED, or confirm N/A]
